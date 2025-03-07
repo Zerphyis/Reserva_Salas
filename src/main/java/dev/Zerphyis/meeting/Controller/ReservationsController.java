@@ -1,7 +1,7 @@
 package dev.Zerphyis.meeting.Controller;
 
-import dev.Zerphyis.meeting.Entity.Records.DataReservations;
-import dev.Zerphyis.meeting.Entity.Records.PersoNameResponse;
+import dev.Zerphyis.meeting.Entity.Records.ReservationsDTo.DataReservations;
+import dev.Zerphyis.meeting.Entity.Records.ReservationsDTo.ReservationsResponse;
 import dev.Zerphyis.meeting.Entity.Reservations.Reservations;
 import dev.Zerphyis.meeting.Service.ReservationsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,35 +16,70 @@ public class ReservationsController {
         @Autowired
         private ReservationsService reservationsService;
 
-        @PostMapping()
-        public ResponseEntity<PersoNameResponse> createReservation(@RequestBody DataReservations data) {
-            Reservations reservation = reservationsService.createReservation(data);
-            PersoNameResponse response = reservation.getReservistName();
-            return ResponseEntity.status(201).body(response);
-        }
+    @PostMapping()
+    public ResponseEntity<ReservationsResponse> createReservation(@RequestBody DataReservations data) {
+        Reservations reservation = reservationsService.createReservation(data);
 
-        @GetMapping("/{id}")
-        public ResponseEntity<Reservations> getReservation(@PathVariable String id) {
-            Reservations reservation = reservationsService.getReservationById(id);
-            return ResponseEntity.ok(reservation);
-        }
+        ReservationsResponse response = new ReservationsResponse(
+                reservation.getRoom().getId(),
+                reservation.getDate(),
+                reservation.getTime(),
+                reservation.getStatus(),
+                reservation.getReservistName()
+        );
 
-        @GetMapping()
-        public ResponseEntity<List<Reservations>> listAllRooms() {
-            return ResponseEntity.ok(reservationsService.listAll());
-        }
+        return ResponseEntity.status(201).body(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ReservationsResponse> getReservation(@PathVariable String id) {
+        Reservations reservation = reservationsService.getReservationById(id);
+
+        ReservationsResponse response = new ReservationsResponse(
+                reservation.getRoom().getId(),
+                reservation.getDate(),
+                reservation.getTime(),
+                reservation.getStatus(),
+                reservation.getReservistName()
+        );
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<ReservationsResponse>> listAllReservations() {
+        List<ReservationsResponse> response = reservationsService.listAll().stream()
+                .map(reservation -> new ReservationsResponse(
+                        reservation.getRoom().getId(),
+                        reservation.getDate(),
+                        reservation.getTime(),
+                        reservation.getStatus(),
+                        reservation.getReservistName()
+                ))
+                .toList();
+        return ResponseEntity.ok(response);
+    }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PersoNameResponse> updateReservation(@PathVariable String id, @RequestBody DataReservations data) {
+    public ResponseEntity<ReservationsResponse> updateReservation(@PathVariable String id, @RequestBody DataReservations data) {
         Reservations reservation = reservationsService.updateReservation(id, data);
-        PersoNameResponse response = reservation.getReservistName(); // Pega o nome do reservista
-        return ResponseEntity.ok(response); // Retorna apenas o nome
+
+        ReservationsResponse response = new ReservationsResponse(
+                reservation.getRoom().getId(),
+                reservation.getDate(),
+                reservation.getTime(),
+                reservation.getStatus(),
+                reservation.getReservistName()
+        );
+
+        return ResponseEntity.ok(response);
     }
 
-        @DeleteMapping("/{id}")
-        public ResponseEntity<Void> deleteReservation(@PathVariable String id) {
-            reservationsService.deleteReservation(id);
-            return ResponseEntity.noContent().build();
-        }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteReservation(@PathVariable String id) {
+        reservationsService.deleteReservation(id);
+        return ResponseEntity.noContent().build();
     }
+    }
+
 
