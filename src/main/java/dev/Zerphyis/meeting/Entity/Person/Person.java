@@ -1,6 +1,6 @@
 package dev.Zerphyis.meeting.Entity.Person;
 
-import dev.Zerphyis.meeting.Entity.Records.AutenticationData;
+import dev.Zerphyis.meeting.Entity.Records.AuthPage.AutenticationData;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
