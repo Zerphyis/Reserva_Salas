@@ -1,13 +1,11 @@
 package dev.Zerphyis.meeting.Entity.Reservations;
 
 import dev.Zerphyis.meeting.Entity.Person.Person;
-import dev.Zerphyis.meeting.Entity.Records.DataReservations;
-import dev.Zerphyis.meeting.Entity.Records.PersoNameResponse;
+import dev.Zerphyis.meeting.Entity.Records.ReservationsDTo.DataReservations;
 import dev.Zerphyis.meeting.Entity.Room.Room;
 import dev.Zerphyis.meeting.Repositorys.PersonRepository;
 import dev.Zerphyis.meeting.Repositorys.RoomRepository;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,32 +15,39 @@ import java.time.LocalTime;
 public class Reservations {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private LocalDate date;
+    private LocalTime time;
+    private TypeStatus status;
 
     @ManyToOne
-    @JoinColumn(name = "sala_id", nullable = false)
+    @JoinColumn(name = "room_id")
     private Room room;
 
     @ManyToOne
-    @JoinColumn(name = "responsavel_id", nullable = false)
+    @JoinColumn(name = "reservist_id")
     private Person reservist;
 
-    @NotNull
-    private LocalDate date;
-
-    @NotNull
-    private LocalTime time;
-
-    @Enumerated(EnumType.STRING)
-    private TypeStatus status;
+    @Transient
+    private String reservistName;
 
     @Transient
-    private final RoomRepository roomRepository;
+    private  RoomRepository roomRepository;
 
     @Transient
-    private final PersonRepository personRepository;
+    private  PersonRepository personRepository;
 
+    public String getReservistName() {
+        if (this.reservist != null) {
+            return this.reservist.getName();
+        }
+        return null;
+    }
+  public Reservations(){
+
+  }
     public Reservations(RoomRepository roomRepository, PersonRepository personRepository) {
         this.roomRepository = roomRepository;
         this.personRepository = personRepository;
@@ -61,12 +66,40 @@ public class Reservations {
         this.status = data.status();
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public void setReservistName(String reservistName) {
+        this.reservistName = reservistName;
+    }
+
+    public TypeStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TypeStatus status) {
+        this.status = status;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
     public Room getRoom() {
@@ -80,35 +113,8 @@ public class Reservations {
     public Person getReservist() {
         return reservist;
     }
-    public PersoNameResponse getReservistName() {
-        return new PersoNameResponse(this.reservist.getName());
-    }
 
     public void setReservist(Person reservist) {
         this.reservist = reservist;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public LocalTime getTime() {
-        return time;
-    }
-
-    public void setTime(LocalTime time) {
-        this.time = time;
-    }
-
-    public TypeStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(TypeStatus status) {
-        this.status = status;
     }
 }
