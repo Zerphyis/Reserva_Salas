@@ -1,6 +1,6 @@
 package dev.Zerphyis.meeting.Service;
 
-import dev.Zerphyis.meeting.Entity.Records.DataRoom;
+import dev.Zerphyis.meeting.Entity.Records.RoomDTO.DataRoom;
 import dev.Zerphyis.meeting.Entity.Room.Room;
 import dev.Zerphyis.meeting.Repositorys.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
