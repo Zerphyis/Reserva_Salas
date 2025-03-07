@@ -1,9 +1,9 @@
 package dev.Zerphyis.meeting.Controller;
 
 import dev.Zerphyis.meeting.Entity.Person.Person;
-import dev.Zerphyis.meeting.Entity.Records.LoginData;
-import dev.Zerphyis.meeting.Entity.Records.PersonResponseDto;
-import dev.Zerphyis.meeting.Entity.Records.ResponseToken;
+import dev.Zerphyis.meeting.Entity.Records.AuthPage.LoginData;
+import dev.Zerphyis.meeting.Entity.Records.PersonDTO.PersonResponseDto;
+import dev.Zerphyis.meeting.Entity.Records.AuthPage.ResponseToken;
 import dev.Zerphyis.meeting.Security.ServiceToken;
 import dev.Zerphyis.meeting.Service.PersonService;
 import jakarta.validation.Valid;
