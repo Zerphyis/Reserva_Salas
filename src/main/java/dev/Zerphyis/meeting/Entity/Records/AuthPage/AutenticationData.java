@@ -1,4 +1,4 @@
-package dev.Zerphyis.meeting.Entity.Records;
+package dev.Zerphyis.meeting.Entity.Records.AuthPage;
 
 import dev.Zerphyis.meeting.Entity.Person.TypeRole;
 

@@ -1,4 +1,4 @@
-package dev.Zerphyis.meeting.Entity.Records;
+package dev.Zerphyis.meeting.Entity.Records.ReservationsDTo;
 
 import dev.Zerphyis.meeting.Entity.Reservations.TypeStatus;
 
