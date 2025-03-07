@@ -1,6 +1,7 @@
 package dev.Zerphyis.meeting.Service;
 
-import dev.Zerphyis.meeting.Entity.Records.DataReservations;
+import dev.Zerphyis.meeting.Entity.Person.Person;
+import dev.Zerphyis.meeting.Entity.Records.ReservationsDTo.DataReservations;
 import dev.Zerphyis.meeting.Entity.Reservations.Reservations;
 import dev.Zerphyis.meeting.Repositorys.PersonRepository;
 import dev.Zerphyis.meeting.Repositorys.ReservationsRepository;
