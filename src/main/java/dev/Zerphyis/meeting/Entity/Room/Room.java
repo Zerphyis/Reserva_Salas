@@ -1,6 +1,6 @@
 package dev.Zerphyis.meeting.Entity.Room;
 
-import dev.Zerphyis.meeting.Entity.Records.DataRoom;
+import dev.Zerphyis.meeting.Entity.Records.RoomDTO.DataRoom;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
